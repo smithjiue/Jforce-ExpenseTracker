@@ -1,35 +1,38 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import Link from "next/link"
-import { useRouter } from "next/navigation"
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
+// Reistration page
 export default function RegisterPage() {
-  const [username, setUsername] = useState("")
-  const [password, setPassword] = useState("")
-  const [email, setEmail] = useState("")
-  const [fullName, setFullName] = useState("")
-  const router = useRouter()
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [fullName, setFullName] = useState("");
+  const router = useRouter();
 
   const handleRegister = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     // Simple registration - in real app, save to database
     if (username && password && email && fullName) {
-      localStorage.setItem("isAuthenticated", "true")
-      localStorage.setItem("username", username)
-      router.push("/dashboard")
+      localStorage.setItem("isAuthenticated", "true");
+      localStorage.setItem("username", username);
+      router.push("/dashboard");
     }
-  }
+  };
 
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
       <Card className="w-full max-w-md bg-white">
         <CardHeader className="text-center">
-          <CardTitle className="text-xl font-semibold text-gray-800">Registration</CardTitle>
+          <CardTitle className="text-xl font-semibold text-gray-800">
+            Registration
+          </CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <form onSubmit={handleRegister} className="space-y-4">
@@ -85,7 +88,10 @@ export default function RegisterPage() {
                 required
               />
             </div>
-            <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white">
+            <Button
+              type="submit"
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white"
+            >
               Register
             </Button>
           </form>
@@ -97,5 +103,5 @@ export default function RegisterPage() {
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }

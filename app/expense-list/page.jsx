@@ -1,42 +1,45 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { useRouter } from "next/navigation"
-import Link from "next/link"
-import { Trash2, Edit } from "lucide-react"
+import { useState, useEffect } from "react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { Trash2, Edit } from "lucide-react";
 
+// List of expenses
 export default function ExpenseListPage() {
-  const [expenses, setExpenses] = useState([])
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
-  const router = useRouter()
+  const [expenses, setExpenses] = useState([]);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
-    const auth = localStorage.getItem("isAuthenticated")
+    const auth = localStorage.getItem("isAuthenticated");
     if (!auth) {
-      router.push("/")
+      router.push("/");
     } else {
-      setIsAuthenticated(true)
+      setIsAuthenticated(true);
       // Load expenses from localStorage
-      const savedExpenses = JSON.parse(localStorage.getItem("expenses") || "[]")
-      setExpenses(savedExpenses)
+      const savedExpenses = JSON.parse(
+        localStorage.getItem("expenses") || "[]"
+      );
+      setExpenses(savedExpenses);
     }
-  }, [router])
+  }, [router]);
 
   const deleteExpense = (id) => {
-    const updatedExpenses = expenses.filter((expense) => expense.id !== id)
-    setExpenses(updatedExpenses)
-    localStorage.setItem("expenses", JSON.stringify(updatedExpenses))
-  }
+    const updatedExpenses = expenses.filter((expense) => expense.id !== id);
+    setExpenses(updatedExpenses);
+    localStorage.setItem("expenses", JSON.stringify(updatedExpenses));
+  };
 
   const editExpense = (expense) => {
-    localStorage.setItem("editingExpense", JSON.stringify(expense))
-    router.push("/update-expense")
-  }
+    localStorage.setItem("editingExpense", JSON.stringify(expense));
+    router.push("/update-expense");
+  };
 
   if (!isAuthenticated) {
-    return null
+    return null;
   }
 
   return (
@@ -46,21 +49,27 @@ export default function ExpenseListPage() {
           <Link href="/dashboard" className="text-blue-600 hover:underline">
             ← Back to Dashboard
           </Link>
-          <Link href="/add-expense">
+          {/* <Link href="/add-expense">
             <Button className="bg-green-600 hover:bg-green-700 text-white">Add New Expense</Button>
-          </Link>
+          </Link> */}
         </div>
 
         <Card className="max-w-4xl mx-auto bg-white">
           <CardHeader className="text-center">
-            <CardTitle className="text-xl font-semibold text-gray-800">Expense List</CardTitle>
+            <CardTitle className="text-xl font-semibold text-gray-800">
+              Expense List
+            </CardTitle>
           </CardHeader>
           <CardContent>
             {expenses.length === 0 ? (
               <div className="text-center py-8">
-                <p className="text-gray-600">No expenses found. Add your first expense!</p>
+                <p className="text-gray-600">
+                  No expenses found. Add your first expense!
+                </p>
                 <Link href="/add-expense">
-                  <Button className="mt-4 bg-green-600 hover:bg-green-700 text-white">Add Expense</Button>
+                  <Button className="mt-4 bg-green-600 hover:bg-green-700 text-white">
+                    Add Expense
+                  </Button>
                 </Link>
               </div>
             ) : (
@@ -70,16 +79,21 @@ export default function ExpenseListPage() {
                     <CardContent className="p-4">
                       <div className="flex justify-between items-start">
                         <div className="flex-1">
-                          <h3 className="font-semibold text-green-600 text-lg">{expense.name}</h3>
+                          <h3 className="font-semibold text-green-600 text-lg">
+                            {expense.name}
+                          </h3>
                           <p className="text-sm text-gray-600">
-                            <span className="font-medium">Amount:</span> ${expense.amount.toFixed(2)}
+                            <span className="font-medium">Amount:</span> ₹
+                            {expense.amount.toFixed(2)}
                           </p>
                           <p className="text-sm text-gray-600">
-                            <span className="font-medium">Date:</span> {new Date(expense.date).toLocaleDateString()}
+                            <span className="font-medium">Date:</span>{" "}
+                            {new Date(expense.date).toLocaleDateString()}
                           </p>
                           {expense.description && (
                             <p className="text-sm text-gray-600 mt-2">
-                              <span className="font-medium">Description:</span> {expense.description}
+                              <span className="font-medium">Description:</span>{" "}
+                              {expense.description}
                             </p>
                           )}
                         </div>
@@ -111,5 +125,5 @@ export default function ExpenseListPage() {
         </Card>
       </div>
     </div>
-  )
+  );
 }

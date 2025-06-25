@@ -32,12 +32,12 @@ export default function DashboardPage() {
   return (
     <div className="min-h-screen bg-gray-100">
       <div className="container mx-auto px-4 py-8">
-        <div className="flex justify-between items-center mb-8">
+        {/* <div className="flex justify-between items-center mb-8">
           <h1 className="text-2xl font-bold text-gray-800">Expense Tracker</h1>
           <Button onClick={handleLogout} variant="outline">
             Logout
           </Button>
-        </div>
+        </div> */}
 
         <Card className="max-w-2xl mx-auto bg-white">
           <CardHeader className="text-center">
@@ -46,23 +46,22 @@ export default function DashboardPage() {
             </CardTitle>
           </CardHeader>
           <CardContent className="text-center space-y-6">
+            <div className="flex justify-center space-x-4">
+              <Link href="/add-expense" className="text-green-600">
+                {/* <Button className="bg-green-600 hover:bg-green-700 text-white px-6"> */}
+                Add Expense
+                {/* </Button> */}
+              </Link>
+              <Link href="/expense-list" className="text-green-600">
+                {/* <Button className="bg-blue-600 hover:bg-blue-700 text-white px-6"> */}
+                Expense List
+                {/* </Button> */}
+              </Link>
+            </div>
             <p className="text-gray-600 text-sm">
               Track and manage your expenses effectively. Use the navigation
               links to add new expenses or view your expense history.
             </p>
-
-            <div className="flex justify-center space-x-4">
-              <Link href="/add-expense">
-                <Button className="bg-green-600 hover:bg-green-700 text-white px-6">
-                  Add Expense
-                </Button>
-              </Link>
-              <Link href="/expense-list">
-                <Button className="bg-blue-600 hover:bg-blue-700 text-white px-6">
-                  Expense List
-                </Button>
-              </Link>
-            </div>
           </CardContent>
         </Card>
       </div>
